@@ -32,7 +32,7 @@ public class Main {
 
        System.out.println("You are now listning "+itr.next());
        showMenu();
-
+       boolean forward=true;
        while(true){
            int option=sc.nextInt();
            switch(option){
@@ -45,10 +45,13 @@ public class Main {
                    printPlayList(playList);
                    break;
                case 3:
-                   playNextSong(playList,itr);
+                   playNextSong(playList,itr,forward);
+                   forward=true;
                    break;
                case 4:
-                   playPreviousSong(playList,itr);
+                   playPreviousSong(playList,itr,forward);
+                   forward=false;
+                   break;
            }
        }
     }
@@ -59,21 +62,30 @@ public class Main {
         }
     }
 
-    public static void playNextSong(LinkedList<Song> playList,ListIterator itr){
+    public static void playNextSong(LinkedList<Song> playList,ListIterator itr,boolean forward){
+        if(!forward){
+            if(itr.hasNext())
+                itr.next();
+        }
+
         if(itr.hasNext()){
             System.out.println(itr.next());
         }
         else{
-            System.out.println("No Song furture");
+            System.out.println("You reached at last of the Playlist!!");
         }
     }
 
-    public static void playPreviousSong(LinkedList<Song> playList,ListIterator itr){
+    public static void playPreviousSong(LinkedList<Song> playList,ListIterator itr,boolean forward){
+        if(forward){
+            if(itr.hasPrevious())
+                itr.previous();
+        }
         if(itr.hasPrevious()){
             System.out.println(itr.previous());
         }
         else{
-            System.out.println("No Song furture");
+            System.out.println("You reached at start of Playlist!!");
         }
     }
     public static void showMenu(){
