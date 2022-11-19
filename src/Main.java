@@ -52,6 +52,13 @@ public class Main {
                    playPreviousSong(playList,itr,forward);
                    forward=false;
                    break;
+               case 5:
+                   repeatSong(itr,forward);
+                   break;
+               case 6:
+                   deleteSong(playList,itr,forward);
+                   break;
+
            }
        }
     }
@@ -88,6 +95,34 @@ public class Main {
             System.out.println("You reached at start of Playlist!!");
         }
     }
+
+    public static void repeatSong(ListIterator<Song> itr,boolean forward){
+        if(!forward){
+            System.out.println(itr.next());
+            itr.previous();
+        }
+        else{
+            System.out.println(itr.previous());
+            itr.next();
+        }
+
+    }
+
+    public static void deleteSong(LinkedList<Song> playlist,ListIterator<Song> itr,boolean forward){
+        if(playlist.size()>0) {
+            itr.remove();
+            if (itr.hasNext()) {
+                System.out.println("Now Playing " + itr.next().toString());
+                itr.previous();
+            } else {
+                if (itr.hasPrevious()) {
+                    System.out.println("Now playing " + itr.previous().toString());
+                    itr.next();3
+                }
+            }
+        }
+    }
+
     public static void showMenu(){
         System.out.println("0. Exit");
         System.out.println("1. Print Menu");
